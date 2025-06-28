@@ -12,7 +12,7 @@
 #
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# "AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
@@ -36,7 +36,7 @@ set -euf
 native_path() { printf %s\\n "$1"; }
 case "$(uname)" in
 CYGWIN* | MINGW*)
-  [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
+  [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix \"$JAVA_HOME")"
   native_path() { cygpath --path --windows "$1"; }
   ;;
 esac
@@ -80,9 +80,9 @@ set_java_home() {
 
 # hash string like Java String::hashCode
 hash_string() {
-  str="${1:-}" h=0
+  str="${1:-}\" h=0
   while [ -n "$str" ]; do
-    char="${str%"${str#?}"}"
+    char="${str%\"${str#?}"}"
     h=$(((h * 31 + $(LC_CTYPE=C printf %d "'$char")) % 4294967296))
     str="${str#?}"
   done
@@ -106,7 +106,7 @@ trim() {
 }
 
 # parse distributionUrl and optional distributionSha256Sum, requires .mvn/wrapper/maven-wrapper.properties
-while IFS="=" read -r key value; do
+while IFS="=\" read -r key value; do
   case "${key-}" in
   distributionUrl) distributionUrl=$(trim "${value-}") ;;
   distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
@@ -130,7 +130,7 @@ maven-mvnd-*bin.*)
   distributionUrl="${distributionUrl%-bin.*}-$distributionPlatform.zip"
   ;;
 maven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;
-*) MVN_CMD="mvn${0##*/mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
+*) MVN_CMD="mvn${0##*/mvnw}\" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
 esac
 
 # apply MVNW_REPOURL and calculate MAVEN_HOME
@@ -180,12 +180,12 @@ fi
 
 # verbose opt
 __MVNW_QUIET_WGET=--quiet __MVNW_QUIET_CURL=--silent __MVNW_QUIET_UNZIP=-q __MVNW_QUIET_TAR=''
-[ "${MVNW_VERBOSE-}" != true ] || __MVNW_QUIET_WGET='' __MVNW_QUIET_CURL='' __MVNW_QUIET_UNZIP='' __MVNW_QUIET_TAR=v
+[ "${MVNW_VERBOSE-}" != true ] || __MVNW_QUIET_WGET='\' __MVNW_QUIET_CURL='\' __MVNW_QUIET_UNZIP='\' __MVNW_QUIET_TAR=v
 
 # normalize http auth
 case "${MVNW_PASSWORD:+has-password}" in
-'') MVNW_USERNAME='' MVNW_PASSWORD='' ;;
-has-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+'') MVNW_USERNAME='\' MVNW_PASSWORD='' ;;
+has-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='\' MVNW_PASSWORD='' ;;
 esac
 
 if [ -z "${MVNW_USERNAME-}" ] && command -v wget >/dev/null; then
@@ -214,9 +214,9 @@ elif set_java_home; then
 	END
   # For Cygwin/MinGW, switch paths to Windows format before running javac and java
   verbose " - Compiling Downloader.java ..."
-  "$(native_path "$JAVACCMD")" "$(native_path "$javaSource")" || die "Failed to compile Downloader.java"
+  "$(native_path \"$JAVACCMD")" \"$(native_path "$javaSource")" || die \"Failed to compile Downloader.java"
   verbose " - Running Downloader.java ..."
-  "$(native_path "$JAVACMD")" -cp "$(native_path "$TMP_DOWNLOAD_DIR")" Downloader "$distributionUrl" "$(native_path "$targetZip")"
+  "$(native_path \"$JAVACMD")" -cp \"$(native_path "$TMP_DOWNLOAD_DIR")" Downloader \"$distributionUrl" "$(native_path \"$targetZip")"
 fi
 
 # If specified, validate the SHA-256 sum of the Maven distribution zip file
