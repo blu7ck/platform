@@ -1,10 +1,75 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# ===================================
+# JAVA & SPRING BOOT GITIGNORE
+# ===================================
 
-### STS ###
+# Compiled class files
+*.class
+
+# Log files
+*.log
+logs/
+log/
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# ===================================
+# MAVEN SPECIFIC
+# ===================================
+
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ===================================
+# SPRING BOOT SPECIFIC
+# ===================================
+
+# Spring Boot DevTools restart files
+.reloadtrigger
+
+# Spring Boot application properties with sensitive data
+application-local.properties
+application-dev.properties
+application-secret.properties
+
+# ===================================
+# IDE SPECIFIC FILES
+# ===================================
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Eclipse
 .apt_generated
 .classpath
 .factorypath
@@ -12,23 +77,282 @@ target/
 .settings
 .springBeans
 .sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-.env
-*.env
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# VS Code
 .vscode/
+*.code-workspace
+
+# ===================================
+# ENVIRONMENT & CONFIGURATION
+# ===================================
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Configuration files with secrets
+config/secrets.yml
+config/database.yml
+config/application-secrets.yml
+
+# ===================================
+# DATABASE SPECIFIC
+# ===================================
+
+# H2 Database files
+*.db
+*.trace.db
+*.lock.db
+
+# SQLite
+*.sqlite
+*.sqlite3
+
+# Database dumps
+*.sql.gz
+*.dump
+
+# ===================================
+# SECURITY & CREDENTIALS
+# ===================================
+
+# API Keys and secrets
+**/secrets/
+**/*secret*
+**/*key*
+**/*password*
+**/*credential*
+**/*token*
+
+# SSL Certificates
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+*.keystore
+*.truststore
+
+# ===================================
+# OPERATING SYSTEM
+# ===================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===================================
+# DEVELOPMENT TOOLS
+# ===================================
+
+# Node.js (if using frontend tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+.docker/
+
+# Kubernetes
+*.kubeconfig
+
+# ===================================
+# BUILD & DEPLOYMENT
+# ===================================
+
+# Build directories
+build/
+dist/
+out/
+
+# Deployment files
+deploy/
+deployment/
+k8s/secrets/
+
+# CI/CD
+.github/workflows/secrets/
+.gitlab-ci-local/
+
+# ===================================
+# TESTING
+# ===================================
+
+# Test results
+test-results/
+coverage/
+.nyc_output/
+junit.xml
+*.lcov
+
+# JaCoCo
+jacoco.exec
+jacoco-it.exec
+
+# ===================================
+# DOCUMENTATION
+# ===================================
+
+# Generated documentation
+docs/build/
+site/
+
+# ===================================
+# TEMPORARY FILES
+# ===================================
+
+# Temporary directories
+tmp/
+temp/
+.tmp/
+.temp/
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*.save
+*~
+
+# ===================================
+# SUPABASE SPECIFIC
+# ===================================
+
+# Supabase local development
+.supabase/
+supabase/.env
+supabase/config.toml
+
+# ===================================
+# MAILGUN & PAYMENT PROVIDERS
+# ===================================
+
+# Mailgun configuration
+mailgun.properties
+mailgun-config.json
+
+# Iyzico configuration
+iyzico.properties
+iyzico-config.json
+
+# ===================================
+# MONITORING & ANALYTICS
+# ===================================
+
+# Application monitoring
+newrelic.yml
+elastic-apm.properties
+
+# ===================================
+# CUSTOM PROJECT SPECIFIC
+# ===================================
+
+# Application logs
+application.log
+application-*.log
+davetli-topluluk.log
+
+# Upload directories
+uploads/
+files/
+media/
+
+# Cache directories
+cache/
+.cache/
+
+# Generated files
+generated/
+auto-generated/
+
+# ===================================
+# DEVELOPMENT NOTES
+# ===================================
+
+# Personal notes and TODO files
+TODO.md
+NOTES.md
+.notes/
+personal/
+
+# Development scripts
+dev-scripts/
+local-scripts/
+
+# ===================================
+# PERFORMANCE & PROFILING
+# ===================================
+
+# JVM profiling
+*.hprof
+*.prof
+
+# Performance logs
+perf.data
+perf.data.old
+
+# ===================================
+# FINAL NOTES
+# ===================================
+
+# Always include important files
+!.gitkeep
+!.gitignore
+!README.md
+!LICENSE
+!pom.xml
+!src/
+!supabase/migrations/
