@@ -10,6 +10,17 @@ spring:
     time-zone: Europe/Istanbul
     date-format: yyyy-MM-dd HH:mm:ss
     property-naming-strategy: SNAKE_CASE
+  # Türkçe karakter desteği için encoding ayarları
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  # Mesaj kaynaklarını UTF-8 ile okuma
+  messages:
+    encoding: UTF-8
+    basename: messages
+    cache-duration: 3600
 
 # Supabase Configuration
 supabase:
@@ -68,3 +79,8 @@ app:
     allowed-methods: GET,POST,PUT,DELETE,OPTIONS
     allowed-headers: "*"
     allow-credentials: true
+
+  # Localization
+  localization:
+    default-locale: tr_TR
+    supported-locales: tr_TR,en_US
