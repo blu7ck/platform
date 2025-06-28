@@ -1,29 +1,29 @@
 /*
-  # Database Schema Improvements
+  # Database Schema Improvements - Corrected Version
 
-  1. Missing Constraints
-    - Add check constraints for data validation
-    - Add unique constraints where needed
-    - Add NOT NULL constraints for required fields
+  1. Data Validation Constraints
+    - Email format validation
+    - Content length limits
+    - Positive amount checks
+    - Date logic validation
 
-  2. Missing Indexes
-    - Add composite indexes for common queries
-    - Add partial indexes for filtered queries
+  2. Performance Optimizations
+    - Composite indexes for common queries
+    - Partial indexes for active records
 
-  3. Missing Functions
-    - Add utility functions for common operations
-    - Add validation functions
+  3. Utility Functions
+    - User statistics
+    - Content engagement metrics
+    - Permission validation
 
-  4. Missing Triggers
-    - Add audit triggers
-    - Add validation triggers
-
-  5. Performance Optimizations
-    - Add materialized views for analytics
-    - Add proper constraints
+  4. New Features
+    - Notification preferences
+    - User activity tracking
+    - Content moderation system
+    - Analytics materialized view
 */
 
--- 1. ADD MISSING CHECK CONSTRAINTS
+-- 1. ADD MISSING CHECK CONSTRAINTS TO EXISTING TABLES
 ALTER TABLE users ADD CONSTRAINT users_email_format_check 
   CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
 
@@ -57,10 +57,7 @@ ALTER TABLE donations ADD CONSTRAINT donations_amount_positive_check
 ALTER TABLE subscriptions ADD CONSTRAINT subscriptions_amount_positive_check 
   CHECK (amount > 0);
 
--- 2. ADD MISSING UNIQUE CONSTRAINTS
-ALTER TABLE users ADD CONSTRAINT users_email_unique UNIQUE (email);
-
--- 3. ADD COMPOSITE INDEXES FOR PERFORMANCE
+-- 2. ADD COMPOSITE INDEXES FOR PERFORMANCE
 CREATE INDEX IF NOT EXISTS idx_flows_user_active_created 
   ON flows (user_id, is_active, created_at DESC) 
   WHERE is_active = true;
@@ -85,7 +82,7 @@ CREATE INDEX IF NOT EXISTS idx_invite_codes_email_active
   ON invite_codes (invited_email, is_active, expires_at) 
   WHERE is_active = true AND NOT is_used;
 
--- 4. ADD UTILITY FUNCTIONS
+-- 3. ADD UTILITY FUNCTIONS
 CREATE OR REPLACE FUNCTION get_user_stats(user_uuid UUID)
 RETURNS JSON AS $$
 DECLARE
@@ -124,27 +121,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- 5. ADD AUDIT TRIGGER FUNCTION
-CREATE OR REPLACE FUNCTION audit_trigger_function()
-RETURNS TRIGGER AS $$
-BEGIN
-  -- Log important changes to a hypothetical audit table
-  -- This is a placeholder for future audit functionality
-  
-  IF TG_OP = 'UPDATE' THEN
-    NEW.updated_at = NOW();
-    RETURN NEW;
-  ELSIF TG_OP = 'INSERT' THEN
-    NEW.created_at = COALESCE(NEW.created_at, NOW());
-    NEW.updated_at = COALESCE(NEW.updated_at, NOW());
-    RETURN NEW;
-  END IF;
-  
-  RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
--- 6. ADD CONTENT VALIDATION FUNCTION
+-- 4. ADD CONTENT VALIDATION FUNCTION
 CREATE OR REPLACE FUNCTION validate_content_permissions(
   user_uuid UUID,
   content_type TEXT,
@@ -188,7 +165,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- 7. ADD NOTIFICATION PREFERENCES TABLE
+-- 5. ADD NOTIFICATION PREFERENCES TABLE
 CREATE TABLE IF NOT EXISTS notification_preferences (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -218,7 +195,7 @@ CREATE INDEX IF NOT EXISTS idx_notification_preferences_user
   ON notification_preferences (user_id) 
   WHERE is_active = true;
 
--- 8. ADD USER ACTIVITY TRACKING
+-- 6. ADD USER ACTIVITY TRACKING
 CREATE TABLE IF NOT EXISTS user_activity (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -249,7 +226,7 @@ CREATE INDEX IF NOT EXISTS idx_user_activity_user_created
 CREATE INDEX IF NOT EXISTS idx_user_activity_type_created 
   ON user_activity (activity_type, created_at DESC);
 
--- 9. ADD CONTENT MODERATION TABLE
+-- 7. ADD CONTENT MODERATION TABLE
 CREATE TABLE IF NOT EXISTS content_reports (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   reporter_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -290,7 +267,7 @@ CREATE INDEX IF NOT EXISTS idx_content_reports_content
   ON content_reports (content_type, content_id) 
   WHERE is_active = true;
 
--- 10. ADD ANALYTICS MATERIALIZED VIEW
+-- 8. ADD ANALYTICS MATERIALIZED VIEW
 CREATE MATERIALIZED VIEW IF NOT EXISTS daily_analytics AS
 SELECT 
   date_trunc('day', created_at) as date,
@@ -329,3 +306,23 @@ BEGIN
   REFRESH MATERIALIZED VIEW CONCURRENTLY daily_analytics;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- 9. ADD AUDIT TRIGGER FUNCTION (for future use)
+CREATE OR REPLACE FUNCTION audit_trigger_function()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Log important changes to a hypothetical audit table
+  -- This is a placeholder for future audit functionality
+  
+  IF TG_OP = 'UPDATE' THEN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+  ELSIF TG_OP = 'INSERT' THEN
+    NEW.created_at = COALESCE(NEW.created_at, NOW());
+    NEW.updated_at = COALESCE(NEW.updated_at, NOW());
+    RETURN NEW;
+  END IF;
+  
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
