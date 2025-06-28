@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Davetli Topluluk'a Davetlisiniz!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+        .invite-code {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        .code {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin: 10px 0;
+        }
+        .button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .message-box {
+            background: #f1f5f9;
+            border-left: 4px solid #2563eb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🎯 Davetli Topluluk</div>
+            <h1>Özel Davetiniz Var! 🎉</h1>
+        </div>
+
+        <p>Merhaba,</p>
+        
+        <p><strong th:text="${inviterName}">Davet Eden</strong> sizi <strong>Davetli Topluluk</strong>'a davet etti!</p>
+
+        <div th:if="${customMessage}" class="message-box">
+            <h3>📝 Kişisel Mesaj:</h3>
+            <p th:text="${customMessage}">Özel mesaj</p>
+        </div>
+
+        <div class="invite-code">
+            <h3>🎫 Davet Kodunuz</h3>
+            <div class="code" th:text="${inviteCode}">INVITE123</div>
+            <p>Bu kodu kayıt sırasında kullanın</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a th:href="${registerUrl}" class="button">🚀 Hemen Katıl</a>
+        </div>
+
+        <h3>🌟 Davetli Topluluk Nedir?</h3>
+        <ul>
+            <li><strong>FLOW:</strong> Düşüncelerinizi paylaşın ve geri bildirim alın</li>
+            <li><strong>SPARK:</strong> Hızlı fikirlerinizi etkileşimli kartlarla test edin</li>
+            <li><strong>İşbirliği:</strong> Diğer üyelerle projeler geliştirin</li>
+            <li><strong>Özel Topluluk:</strong> Sadece davetli üyeler</li>
+        </ul>
+
+        <div class="footer">
+            <p>Bu davet kodu 30 gün geçerlidir.</p>
+            <p>Sorularınız için: <a href="mailto:destek@davetlitopluluk.com">destek@davetlitopluluk.com</a></p>
+            <p>© 2025 Davetli Topluluk. Tüm hakları saklıdır.</p>
+        </div>
+    </div>
+</body>
+</html>

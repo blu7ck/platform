@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme Bildirimi</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #059669;
+            margin-bottom: 10px;
+        }
+        .status-success {
+            background: #d1fae5;
+            border: 1px solid #059669;
+            color: #065f46;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .status-failed {
+            background: #fee2e2;
+            border: 1px solid #dc2626;
+            color: #991b1b;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .payment-details {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">💳 Ödeme Bildirimi</div>
+            <h1 th:if="${status == 'completed'}">Ödemeniz Alındı! ✅</h1>
+            <h1 th:if="${status != 'completed'}">Ödeme Durumu Güncellendi</h1>
+        </div>
+
+        <p>Merhaba <span th:text="${userName}">Kullanıcı</span>,</p>
+
+        <div th:if="${status == 'completed'}" class="status-success">
+            <h3>✅ Ödeme Başarılı</h3>
+            <p>Ödemeniz başarıyla işlendi. Desteğiniz için teşekkür ederiz!</p>
+        </div>
+
+        <div th:if="${status != 'completed'}" class="status-failed">
+            <h3>❌ Ödeme Başarısız</h3>
+            <p>Ödemenizde bir sorun oluştu. Lütfen tekrar deneyiniz.</p>
+        </div>
+
+        <div class="payment-details">
+            <h3>💰 Ödeme Detayları</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><strong>Tip:</strong></td>
+                    <td style="padding: 8px; border-bottom: 1px solid #e2e8f0;" th:text="${paymentType}">Bağış</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><strong>Tutar:</strong></td>
+                    <td style="padding: 8px; border-bottom: 1px solid #e2e8f0;" th:text="${amount}">100 TL</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #e2e8f0;"><strong>Durum:</strong></td>
+                    <td style="padding: 8px; border-bottom: 1px solid #e2e8f0;" th:text="${status}">completed</td>
+                </tr>
+            </table>
+        </div>
+
+        <div th:if="${status == 'completed'}">
+            <h3>🙏 Teşekkürler!</h3>
+            <p>Desteğiniz sayesinde Davetli Topluluk'u daha da geliştirebiliyoruz. Katkınız için çok teşekkür ederiz!</p>
+        </div>
+
+        <div class="footer">
+            <p>Bu mail otomatik olarak gönderilmiştir.</p>
+            <p>Sorularınız için: <a href="mailto:destek@davetlitopluluk.com">destek@davetlitopluluk.com</a></p>
+            <p>© 2025 Davetli Topluluk. Tüm hakları saklıdır.</p>
+        </div>
+    </div>
+</body>
+</html>

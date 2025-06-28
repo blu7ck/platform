@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Mesaj</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #3b82f6;
+            margin-bottom: 10px;
+        }
+        .message-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .button {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">💬 Yeni Mesaj</div>
+            <h1>Size Yeni Mesaj Geldi!</h1>
+        </div>
+
+        <p>Merhaba <span th:text="${userName}">Kullanıcı</span>,</p>
+        
+        <p><strong th:text="${senderName}">Gönderen</strong> size yeni bir mesaj gönderdi:</p>
+
+        <div class="message-box">
+            <h3>📨 Mesaj Önizleme</h3>
+            <p th:text="${messagePreview}">Mesaj içeriği...</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a th:href="${frontendUrl + '/messages'}" class="button">💬 Mesajları Görüntüle</a>
+        </div>
+
+        <div class="footer">
+            <p>Bu bildirimi almak istemiyorsanız, hesap ayarlarınızdan kapatabilirsiniz.</p>
+            <p>© 2025 Davetli Topluluk. Tüm hakları saklıdır.</p>
+        </div>
+    </div>
+</body>
+</html>

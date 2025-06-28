@@ -29,6 +29,20 @@ supabase:
   service-key: ${SUPABASE_SERVICE_KEY:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtybWp6am9rZnR3aWNzcW53b2dlIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTA1NTM0MywiZXhwIjoyMDY2NjMxMzQzfQ.KBEFpCoxrdhmwYEQXMUlfec5OgdilR-i-Q44U3I2MiA}
   jwt-secret: ${SUPABASE_JWT_SECRET:JXiDtkNqSKJBaJk7EyBKE2V83EYg+iRW3vUPfvYVLPntPBJMnrlL0GAsslXCpEIfUaxKyJOAyXJUCOJbW9L7kg==}
 
+# Mailgun Configuration
+mailgun:
+  api-key: ${MAILGUN_API_KEY:your-mailgun-api-key}
+  domain: ${MAILGUN_DOMAIN:your-domain.com}
+  from-email: ${MAILGUN_FROM_EMAIL:noreply@your-domain.com}
+  from-name: ${MAILGUN_FROM_NAME:Davetli Topluluk}
+  base-url: ${MAILGUN_BASE_URL:https://api.mailgun.net/v3}
+
+# Iyzico Configuration
+iyzico:
+  api-key: ${IYZICO_API_KEY:your-iyzico-api-key}
+  secret-key: ${IYZICO_SECRET_KEY:your-iyzico-secret-key}
+  base-url: ${IYZICO_BASE_URL:https://sandbox-api.iyzipay.com}
+
 # Logging
 logging:
   level:
@@ -43,6 +57,7 @@ logging:
 app:
   name: "Davetli Topluluk"
   version: "1.0.0"
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
 
   # JWT Settings
   jwt:
@@ -53,6 +68,7 @@ app:
     max-per-year: 5
     code-length: 8
     expiration-days: 30
+    admin-unlimited: true
 
   # Content Limits
   content:
@@ -84,3 +100,9 @@ app:
   localization:
     default-locale: tr_TR
     supported-locales: tr_TR,en_US
+
+  # Email Notifications
+  notifications:
+    enabled: true
+    batch-size: 50
+    retry-attempts: 3
