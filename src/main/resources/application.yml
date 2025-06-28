@@ -1,0 +1,70 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: davetli-topluluk
+  jackson:
+    time-zone: Europe/Istanbul
+    date-format: yyyy-MM-dd HH:mm:ss
+    property-naming-strategy: SNAKE_CASE
+
+# Supabase Configuration
+supabase:
+  url: ${SUPABASE_URL:https://krmjzjokftwicsqnwoge.supabase.co}
+  anon-key: ${SUPABASE_ANON_KEY:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtybWp6am9rZnR3aWNzcW53b2dlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNTUzNDMsImV4cCI6MjA2NjYzMTM0M30.VsV1n4Nu1jTN9Ks8eu-BIdsea8ETZLDnWOUS3Beirgc}
+  service-key: ${SUPABASE_SERVICE_KEY:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtybWp6am9rZnR3aWNzcW53b2dlIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTA1NTM0MywiZXhwIjoyMDY2NjMxMzQzfQ.KBEFpCoxrdhmwYEQXMUlfec5OgdilR-i-Q44U3I2MiA}
+  jwt-secret: ${SUPABASE_JWT_SECRET:JXiDtkNqSKJBaJk7EyBKE2V83EYg+iRW3vUPfvYVLPntPBJMnrlL0GAsslXCpEIfUaxKyJOAyXJUCOJbW9L7kg==}
+
+# Logging
+logging:
+  level:
+    com.blu4ck.topluluk_platform: DEBUG
+    org.springframework.security: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+  file:
+    name: logs/davetli-topluluk.log
+
+# App Specific Settings
+app:
+  name: "Davetli Topluluk"
+  version: "1.0.0"
+
+  # JWT Settings
+  jwt:
+    expiration: 86400000
+
+  # Invite System
+  invite:
+    max-per-year: 5
+    code-length: 8
+    expiration-days: 30
+
+  # Content Limits
+  content:
+    flow:
+      max-length: 2000
+      response-max-length: 500
+    spark:
+      max-length: 280
+      interaction-cards: 20
+
+  # Collaboration
+  collaboration:
+    premium-price-usd: 200
+    premium-price-try: 5000
+
+  # File Upload
+  file:
+    max-size: 10MB
+    allowed-types: jpg,jpeg,png,gif,pdf,doc,docx
+
+  # CORS
+  cors:
+    allowed-origins: http://localhost:3000,http://localhost:3001
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+    allowed-headers: "*"
+    allow-credentials: true
